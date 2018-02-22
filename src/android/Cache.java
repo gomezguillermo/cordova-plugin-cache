@@ -31,6 +31,7 @@ import java.io.File;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.util.Log;
+import android.os.Environment;
 
 @TargetApi(19)
 public class Cache extends CordovaPlugin {
@@ -119,7 +120,16 @@ public class Cache extends CordovaPlugin {
 
 	// http://www.hrupin.com/2011/11/how-to-clear-user-data-in-your-android-application-programmatically
 	private void clearApplicationData() {
-		File cache = this.cordova.getActivity().getExternalCacheDir();
+		File cache = null;
+
+		// SD Card Mounted
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+		    cache = cordova.getActivity().getExternalCacheDir();
+		}
+		// Use internal storage
+		else {
+		    cache = cordova.getActivity().getCacheDir();
+		}
 		File appDir = new File(cache.getParent());
 		Log.i(LOG_TAG, "Absolute path: " + appDir.getAbsolutePath());
 		if (appDir.exists()) {
