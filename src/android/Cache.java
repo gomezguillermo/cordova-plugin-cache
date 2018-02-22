@@ -130,13 +130,13 @@ public class Cache extends CordovaPlugin {
 		else {
 		    cache = cordova.getActivity().getCacheDir();
 		}
-		File appDir = new File(cache.getParent());
-		Log.i(LOG_TAG, "Absolute path: " + appDir.getAbsolutePath());
-		if (appDir.exists()) {
-			String[] children = appDir.list();
+
+		Log.i(LOG_TAG, "Absolute path: " + cache.getAbsolutePath());
+		if (cache.exists()) {
+			String[] children = cache.list();
 			for (String s : children) {
 				if (!s.equals("lib")) {
-					deleteDir(new File(appDir, s));
+					deleteDir(new File(cache, s));
 					Log.i(LOG_TAG, "File /data/data/APP_PACKAGE/" + s + " DELETED");
 				}
 			}
