@@ -124,7 +124,8 @@ public class Cache extends CordovaPlugin {
 
 		// SD Card Mounted
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-		    cache = cordova.getActivity().getExternalCacheDir();
+			cache = new File(Environment.getExternalStorageDirectory() + File.separator + "argoseye");
+			//cache = cordova.getActivity().getExternalCacheDir();
 		}
 		// Use internal storage
 		else {
